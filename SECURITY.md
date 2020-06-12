@@ -7,7 +7,7 @@ currently being supported with security updates.
 
 | Version                 | Supported          |
 | ------------------------| ------------------ |
-| Chipmunk Alpha 1        | :white_check_mark: |
+|   Chipmunk Alpha 1      | 🟨                 |
 | Chipmunk LTS (Upcoming) | :white_check_mark: |
 ## Reporting a Vulnerability
 
