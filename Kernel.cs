@@ -10,7 +10,7 @@ namespace OS1
     {
         protected override void BeforeRun()
         {
-            Console.WriteLine("CommandOS 1.0 booted successfully. Type a line of text to get it echoed back.");
+            Console.WriteLine("CommandOS Chipmunk booted successfully.");
         }
 
         protected override void Run()
@@ -55,165 +55,179 @@ namespace OS1
 
                 Console.Write(username + "@CommandOS  $  ");
                 cmd = Console.ReadLine();
-                switch (cmd)
+                if (cmd == "about")
                 {
 
-                    case "about":
+                    Console.WriteLine("CommandOS Chipmunk is an operating system developed");
+                    Console.WriteLine("using the Cosmos User Kit.");
 
-                        Console.WriteLine("CommandOS 1.0 (Codename Chipmunk) is an operating system developed");
-                        Console.WriteLine("using the Cosmos User Kit.");
+                } else if (cmd.StartsWith("shutdown"))
+                {
 
-
-                        break;
-                    case "shutdown":
+                    if (cmd == "shutdown")
+                    {
 
                         Sys.Power.Shutdown();
 
-
-                        break;
-                    case "reboot":
-
+                    } else if (cmd == "shutdown -r")
+                    {
 
                         Sys.Power.Reboot();
 
-                        break;
-                    case "edit":
+                    }
 
-                        Console.Write("Path to File: ");
-                        input = Console.ReadLine();
-                        if (File.Exists(input))
+                } else if (cmd == "edit") {
+
+
+                    Console.Write("Path to File: ");
+                    input = Console.ReadLine();
+                    if (File.Exists(input))
+                    {
+
+                        Console.WriteLine("Old Contents: ");
+                        int i = 0;
+                        while (i < File.ReadAllLines(input).Length)
                         {
 
-                            Console.WriteLine("Old Contents: ");
-                            int i = 0;
-                            while (i < File.ReadAllLines(input).Length)
-                            {
-
-                                Console.WriteLine(File.ReadAllLines(input)[i]);
-                                i++;
-
-                            }
-                            Console.WriteLine("New Contents:");
-                            List<string> nconts = new List<string>();
-                            string ci = "";
-                            while (ci != @"\%exit")
-                            {
-
-                                ci = Console.ReadLine();
-                                if (ci != @"\%exit")
-                                {
-
-                                    nconts.Add(ci);
-
-                                }
-
-
-
-                            }
-                            File.WriteAllLines(input, nconts.ToArray());
-
-                        } else
-                        {
-
-                            Console.WriteLine("Doesn't exist. Creating...");
-                            Console.WriteLine("Contents: ");
-                            List<string> nconts = new List<string>();
-                            string ci = "";
-                            while (ci != @"\%exit")
-                            {
-
-                                ci = Console.ReadLine();
-                                if (ci != @"\%exit")
-                                {
-
-                                    nconts.Add(ci);
-
-                                }
-
-
-
-                            }
-                            File.WriteAllLines(input, nconts.ToArray());
+                            Console.WriteLine(File.ReadAllLines(input)[i]);
+                            i++;
 
                         }
-                        break;
-                    case "dir":
-
-                        Console.Write("Directory Of: ");
-                        input = Console.ReadLine();
-                        if (input != "")
+                        Console.WriteLine("New Contents:");
+                        List<string> nconts = new List<string>();
+                        string ci = "";
+                        while (ci != @"\%exit")
                         {
 
-                            string[] dirdirs = Directory.GetDirectories(input);
-                            int i = 0;
-                            while(i < dirdirs.Length)
+                            ci = Console.ReadLine();
+                            if (ci != @"\%exit")
                             {
 
-                                Console.WriteLine(dirdirs[i] + "    [DIR]");
-                                i++;
-
-                            }
-                            i = 0;
-                            string[] dirfils = Directory.GetFiles(input);
-                            while(i < dirfils.Length)
-                            {
-
-                                Console.WriteLine(dirfils[i] + "    [FILE]");
-                                i++;
+                                nconts.Add(ci);
 
                             }
 
+
+
                         }
+                        File.WriteAllLines(input, nconts.ToArray());
 
-                        break;
+                    }
+                    else
+                    {
 
-                    case "rm":
-
-                        Console.Write("Path to File: ");
-                        input = Console.ReadLine();
-                        if(input != "" && File.Exists(input))
+                        Console.WriteLine("Doesn't exist. Creating...");
+                        Console.WriteLine("Contents: ");
+                        List<string> nconts = new List<string>();
+                        string ci = "";
+                        while (ci != @"\%exit")
                         {
 
-                            File.Delete(input);
+                            ci = Console.ReadLine();
+                            if (ci != @"\%exit")
+                            {
+
+                                nconts.Add(ci);
+
+                            }
+
+
 
                         }
-                        
-                        break;
-                    case "rmdir":
+                        File.WriteAllLines(input, nconts.ToArray());
 
-                        Console.Write("Path to Directory: ");
-                        input = Console.ReadLine();
-                        if (input != "" && Directory.Exists(input))
+                    }
+
+
+                } else if (cmd == "dir")
+                {
+
+                    Console.Write("Directory Of: ");
+                    input = Console.ReadLine();
+                    if (input != "")
+                    {
+
+                        string[] dirdirs = Directory.GetDirectories(input);
+                        int i = 0;
+                        while (i < dirdirs.Length)
                         {
 
-                            Directory.Delete(input);
+                            Console.WriteLine(dirdirs[i] + "    [DIR]");
+                            i++;
 
                         }
-
-                        break;
-                    case "mkdir":
-
-                        Console.Write("Path (Including New Directory):  ");
-                        input = Console.ReadLine();
-                        if (input != "")
+                        i = 0;
+                        string[] dirfils = Directory.GetFiles(input);
+                        while (i < dirfils.Length)
                         {
-                            Directory.CreateDirectory(input);
+
+                            Console.WriteLine(dirfils[i] + "    [FILE]");
+                            i++;
+
                         }
 
-                        break;
+                    }
 
-                    default:
+                } else if (cmd == "rm")
+                {
 
-                        Console.WriteLine("Unknown command.");
+                    Console.Write("Path to File: ");
+                    input = Console.ReadLine();
+                    if (input != "" && File.Exists(input))
+                    {
 
-                            break;
+                        File.Delete(input);
+
+                    }
+
+                } else if(cmd == "rmdir")
+                {
+
+                    Console.Write("Path to Directory: ");
+                    input = Console.ReadLine();
+                    if (input != "" && Directory.Exists(input))
+                    {
+
+                        Directory.Delete(input);
+
+                    }
+
+                } else if (cmd == "mkdir")
+                {
 
 
+                    Console.Write("Path (Including New Directory):  ");
+                    input = Console.ReadLine();
+                    if (input != "")
+                    {
+                        Directory.CreateDirectory(input);
+                    }
 
-
-                        
                 }
+                
+                
+                
+                
+                else if (cmd == "")
+                {
+
+
+
+
+                }
+                else
+                {
+
+                    Console.WriteLine("Unknown command.");
+
+                }
+
+
+
+
+                        
             }
         }
     }
 }
+
