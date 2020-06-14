@@ -2,7 +2,7 @@
 name: Security Issue
 about: Problem with Security
 title: ''
-labels: 'Priority: High, Security Issue'
+labels: 'Available, Priority: High, Security Issue'
 assignees: ''
 
 ---

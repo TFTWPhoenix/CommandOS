@@ -2,7 +2,7 @@
 name: Other Issue
 about: Other Issues
 title: ''
-labels: ''
+labels: Available
 assignees: ''
 
 ---
