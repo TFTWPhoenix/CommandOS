@@ -37,6 +37,13 @@ namespace XCode
 
             }
 
+            else
+            {
+
+                Plugins.PlugMan.exec(code);
+
+            }
+
         }
 
     }

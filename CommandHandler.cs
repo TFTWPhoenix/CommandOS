@@ -155,7 +155,31 @@ namespace OS1
                     while (i < dirfils.Length)
                     {
 
-                        Console.WriteLine(dirfils[i] + "    [FILE]");
+                        if (dirfils[i].EndsWith(".txt"))
+                        {
+
+                            Console.WriteLine(dirfils[i] + "    [Text Document]");
+
+                        }
+                        else if (dirfils[i].EndsWith(".ivk"))
+                        {
+
+                            Console.WriteLine(dirfils[i] + "    [Invokable Program]");
+
+                        }
+                        else if (dirfils[i].EndsWith(".pkg"))
+                        {
+
+                            Console.WriteLine(dirfils[i] + "    [CommandOS Packaged Program]");
+
+                        }
+                        else if (dirfils[i].EndsWith(".xsc"))
+                        {
+
+                            Console.WriteLine(dirfils[i] + "    [XCode Source File]");
+
+                        }
+
                         i++;
 
                     }
@@ -252,29 +276,34 @@ namespace OS1
 
                 Console.Clear();
 
-            } else if (cmd.StartsWith("invoke "))
+            }
+            else if (cmd.StartsWith("invoke "))
             {
+
 
                 string toBeSearched = "invoke ";
                 int ix = cmd.IndexOf(toBeSearched);
 
                 if (ix != -1)
                 {
+
                     string prog = cmd.Substring(ix + toBeSearched.Length);
                     int i = 0;
-                    string[] lns = File.ReadAllLines(prog);
-                    while(i < lns.Length)
+                    if (File.Exists(prog) && prog.EndsWith(".ivk"))
                     {
+                        string[] lns = File.ReadAllLines(prog);
+                        while (i < lns.Length)
+                        {
 
-                        XCode.CodeHandler.exec(lns[i]);
-                        i++;
+                            XCode.CodeHandler.exec(lns[i]);
+                            i++;
 
+                        }
                     }
                 }
 
+                Console.WriteLine();
             }
-
-
 
 
             else if (cmd == "")
