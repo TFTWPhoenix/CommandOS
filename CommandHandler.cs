@@ -45,68 +45,73 @@ namespace OS1
                 }
 
             }
-            else if (cmd == "edit")
+            else if (cmd.StartsWith("edit"))
             {
 
+                string toBeSearched = "edit ";
+                int ix = cmd.IndexOf(toBeSearched);
 
-                Console.Write("Path to File: ");
-                input = Console.ReadLine();
-                if (File.Exists(input))
+                if (ix != -1)
                 {
-
-                    Console.WriteLine("Old Contents: ");
-                    int i = 0;
-                    while (i < File.ReadAllLines(input).Length)
+                    string inp = cmd.Substring(ix + toBeSearched.Length);
+                    if (File.Exists(inp))
                     {
 
-                        Console.WriteLine(File.ReadAllLines(input)[i]);
-                        i++;
-
-                    }
-                    Console.WriteLine("New Contents:");
-                    List<string> nconts = new List<string>();
-                    string ci = "";
-                    while (ci != @"\%exit")
-                    {
-
-                        ci = Console.ReadLine();
-                        if (ci != @"\%exit")
+                        Console.WriteLine("Old Contents: ");
+                        int i = 0;
+                        while (i < File.ReadAllLines(inp).Length)
                         {
 
-                            nconts.Add(ci);
+                            Console.WriteLine(File.ReadAllLines(inp)[i]);
+                            i++;
 
                         }
-
-
-
-                    }
-                    File.WriteAllLines(input, nconts.ToArray());
-
-                }
-                else
-                {
-
-                    Console.WriteLine("Doesn't exist. Creating...");
-                    Console.WriteLine("Contents: ");
-                    List<string> nconts = new List<string>();
-                    string ci = "";
-                    while (ci != @"\%exit")
-                    {
-
-                        ci = Console.ReadLine();
-                        if (ci != @"\%exit")
+                        Console.WriteLine("New Contents:");
+                        List<string> nconts = new List<string>();
+                        string ci = "";
+                        while (ci != @"\%exit")
                         {
 
-                            nconts.Add(ci);
+                            ci = Console.ReadLine();
+                            if (ci != @"\%exit")
+                            {
+
+                                nconts.Add(ci);
+
+                            }
+
+
 
                         }
-
-
+                        File.WriteAllLines(inp, nconts.ToArray());
 
                     }
-                    File.WriteAllLines(input, nconts.ToArray());
+                    else
+                    {
 
+                        Console.WriteLine("Doesn't exist. Creating...");
+                        Console.WriteLine("Contents: ");
+                        List<string> nconts = new List<string>();
+                        string ci = "";
+                        while (ci != @"\%exit")
+                        {
+
+                            ci = Console.ReadLine();
+                            if (ci != @"\%exit")
+                            {
+
+                                nconts.Add(ci);
+
+                            }
+
+
+
+                        }
+                        File.WriteAllLines(inp, nconts.ToArray());
+
+                    }
                 }
+                
 
 
             }
