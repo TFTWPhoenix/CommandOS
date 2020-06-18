@@ -1,6 +1,8 @@
-﻿using System;
+﻿using OS1;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using XCode.Plugins.Shock.Exceptions;
 
 namespace XCode.Plugins
 {
@@ -89,15 +91,19 @@ namespace XCode.Plugins
                         Console.Write(" ");
                         Console.BackgroundColor = ConsoleColor.Black;
 
-                    } else if (color == "darkyellow")
+                    } else
                     {
 
-                        Console.BackgroundColor = ConsoleColor.DarkYellow;
-                        Console.Write(" ");
-                        Console.BackgroundColor = ConsoleColor.Black;
+                        errorHandler.handle(unknowncolor.throwErr(), false);
 
                     }
+                    
                 }
+            } else if (code == "newln")
+            {
+
+                Console.WriteLine("");
+
             }
 
         }

@@ -14,11 +14,13 @@ namespace OS1
             List<string> cmds = new List<string>();
             cmds.Add("about");
             cmds.Add("shutdown [-r]");
-            cmds.Add("edit");
+            cmds.Add("edit <file>");
             cmds.Add("dir");
             cmds.Add("rm");
             cmds.Add("rmdir");
             cmds.Add("mkdir");
+            cmds.Add("clr");
+            cmds.Add("invoke <program>");
             cmds.Add("?/help/cmdlist");
             string input;
             if (cmd == "about")
@@ -178,7 +180,7 @@ namespace OS1
                             Console.WriteLine(dirfils[i] + "    [CommandOS Packaged Program]");
 
                         }
-                        else if (dirfils[i].EndsWith(".xsc"))
+                        else if (dirfils[i].EndsWith(".xcd"))
                         {
 
                             Console.WriteLine(dirfils[i] + "    [XCode Source File]");
