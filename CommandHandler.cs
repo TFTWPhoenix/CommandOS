@@ -13,15 +13,17 @@ namespace OS1
         {
             List<string> cmds = new List<string>();
             cmds.Add("about");
-            cmds.Add("shutdown [-r]");
-            cmds.Add("edit <file>");
+            cmds.Add("shutdown <-r>");
+            cmds.Add("edit [file]");
             cmds.Add("dir");
             cmds.Add("rm");
             cmds.Add("rmdir");
             cmds.Add("mkdir");
             cmds.Add("clr");
-            cmds.Add("invoke <program>");
+            cmds.Add("invoke [program]");
+            cmds.Add("personalize [option] <value>");
             cmds.Add("?/help/cmdlist");
+            
             string input;
             if (cmd == "about")
             {
@@ -113,7 +115,7 @@ namespace OS1
 
                     }
                 }
-                
+
 
 
             }
@@ -139,7 +141,36 @@ namespace OS1
                     while (i < dirfils.Length)
                     {
 
-                        Console.WriteLine(dirfils[i] + "    [FILE]");
+                        if (dirfils[i].EndsWith(".txt"))
+                        {
+
+                            Console.WriteLine(dirfils[i] + "    [Text Document]");
+
+                        }
+                        else if (dirfils[i].EndsWith(".ivk"))
+                        {
+
+                            Console.WriteLine(dirfils[i] + "    [Invocable Program]");
+
+                        }
+                        else if (dirfils[i].EndsWith(".pkg"))
+                        {
+
+                            Console.WriteLine(dirfils[i] + "    [CommandOS Packaged Program]");
+
+                        }
+                        else if (dirfils[i].EndsWith(".xcd"))
+                        {
+
+                            Console.WriteLine(dirfils[i] + "    [XCode Source File]");
+
+                        }
+                        else
+                        {
+
+                            Console.WriteLine(dirfils[i] + "    [Unknown File Type]");
+
+                        }
                         i++;
 
                     }
@@ -171,7 +202,7 @@ namespace OS1
                         else if (dirfils[i].EndsWith(".ivk"))
                         {
 
-                            Console.WriteLine(dirfils[i] + "    [Invokable Program]");
+                            Console.WriteLine(dirfils[i] + "    [Invocable Program]");
 
                         }
                         else if (dirfils[i].EndsWith(".pkg"))
@@ -199,6 +230,7 @@ namespace OS1
 
                 Console.Write("Path to File: ");
                 input = Console.ReadLine();
+
                 if (input != "" && File.Exists(input) && input != @"0:\os\user.cfg")
                 {
 
@@ -249,6 +281,7 @@ namespace OS1
 
                 Console.Write("Path (Including New Directory):  ");
                 input = Console.ReadLine();
+
                 if (input != "")
                 {
                     Directory.CreateDirectory(input);
@@ -311,6 +344,76 @@ namespace OS1
 
                 Console.WriteLine();
             }
+            else if (cmd.StartsWith("xcexec "))
+            {
+
+
+                string toBeSearched = "xcexec ";
+                int ix = cmd.IndexOf(toBeSearched);
+
+                if (ix != -1)
+                {
+
+                    string prog = cmd.Substring(ix + toBeSearched.Length);
+                    XCode.CodeHandler.exec(prog);
+
+
+                }
+
+                Console.WriteLine();
+            }
+            else if (cmd.StartsWith("personalize "))
+            {
+
+
+                string toBeSearched = "personalize ";
+                int ix = cmd.IndexOf(toBeSearched);
+
+                if (ix != -1)
+                {
+
+                    string inp = cmd.Substring(ix + toBeSearched.Length);
+                    int i = 0;
+                    if(inp == "text-color red")
+                    {
+
+                        Console.ForegroundColor = ConsoleColor.Red;
+
+                    } else if (inp == "text-color green")
+                    {
+
+                        Console.ForegroundColor = ConsoleColor.Green;
+
+                    } else if (inp == "text-color blue")
+                    {
+
+                        Console.ForegroundColor = ConsoleColor.Blue;
+
+                    } else if (inp == "shellprompt")
+                    {
+
+                        string npromptraw;
+                        Console.Write("New Prompt: ");
+                        npromptraw = Console.ReadLine();
+                        if(npromptraw == @"\%reset")
+                        {
+
+                            data.prompt = Kernel.username + "@Chipmunk  $  ";
+
+                        } else
+                        {
+
+                            data.prompt = npromptraw;
+
+                        }
+
+                    }
+
+                }
+
+                Console.WriteLine();
+            }
+
 
 
             else if (cmd == "")

@@ -12,14 +12,14 @@ namespace OS1
         {
             Console.WriteLine("CommandOS Chipmunk booted successfully.");
         }
-
+        public static string username;
         protected override void Run()
         {
             
             var fs = new Sys.FileSystem.CosmosVFS();
             Sys.FileSystem.VFS.VFSManager.RegisterVFS(fs);
             string cmd;
-            string username;
+
             string input;
             if (!Directory.Exists(@"0:\os"))
             {
@@ -46,6 +46,7 @@ namespace OS1
                 username = File.ReadAllLines(@"0:\os\user.cfg")[0];
 
             }
+            data.prompt = username + "@Chipmunk  $  ";
 
             Console.Clear();
 
@@ -54,7 +55,7 @@ namespace OS1
             while (true)
             {
 
-                Console.Write(username + "@Chipmunk  $  ");
+                Console.Write(data.prompt);
                 cmd = Console.ReadLine();
                 CommandHandler.exec(cmd);
             }
