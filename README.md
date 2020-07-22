@@ -2,7 +2,7 @@
 CommandOS is an operating system made with the Cosmos user kit.
 
 ### Notice
-CommandOS is currently undergoing a FULL rewrite. Programs that used to work will NOT work anymore. If you need to run an old program start up an old release. The first release using the rewrite will be Beta 2.
+Due to the current inavailabiliy of Cosmos on Linux development of CommandOS is currently halted.
 
 ### Leave feedback
 
